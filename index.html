@@ -360,7 +360,7 @@
         <section id="exercices" class="mb-16 scroll-mt-10">
             <div class="flex items-center justify-between mb-8 pb-4 border-b-2 border-primary/20">
                 <h2 class="text-3xl font-extrabold text-primary flex items-center gap-3">
-                    <i class="fa-solid fa-dumbbell"></i> 3 Exercices types corrigés
+                    <i class="fa-solid fa-dumbbell"></i> 5 Exercices types corrigés
                 </h2>
                 <span class="bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Niveau Contrôle</span>
             </div>
@@ -472,6 +472,74 @@
                                 <strong>Pour k = 2 :</strong> $\quad z_2 = 2e^{i\frac{4\pi}{3}} = 2\left(-\frac{1}{2} - i\frac{\sqrt{3}}{2}\right) = \mathbf{-1 - i\sqrt{3}}$
                             </li>
                         </ul>
+                    </div>
+                </div>
+
+                <!-- EXERCICE 4 -->
+                <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                    <div class="p-6 bg-slate-50 border-b border-slate-100">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-lg font-bold text-slate-800"><span class="text-primary mr-2">Exercice 4</span> Équation du second degré</h3>
+                        </div>
+                        <p class="mt-4 text-slate-700">Résoudre dans $\mathbb{C}$ l'équation suivante :</p>
+                        <div class="math-block text-lg">$$ z^2 - 4z + 13 = 0 $$</div>
+                    </div>
+                    <div class="p-4 bg-white text-center">
+                        <button onclick="toggleCorrection('corr4')" class="bg-primary hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg transition-colors shadow-sm">
+                            <i class="fa-solid fa-eye mr-2"></i> Voir la correction
+                        </button>
+                    </div>
+                    <div id="corr4" class="hidden p-6 bg-emerald-50 border-t border-emerald-100">
+                        <h4 class="font-bold text-emerald-800 mb-4 flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2"></i> Correction étape par étape</h4>
+                        <p class="text-slate-700 mb-2">On calcule le discriminant $\Delta$ :</p>
+                        <div class="math-block bg-white p-3 rounded-lg border border-emerald-200 mb-4">
+                            $$ \Delta = (-4)^2 - 4 \times 1 \times 13 = 16 - 52 = -36 $$
+                        </div>
+                        <p class="text-slate-700 mb-2">Comme $\Delta < 0$, l'équation admet deux solutions complexes conjuguées. On pose $\Delta = (6i)^2$.</p>
+                        <div class="math-block bg-white p-4 rounded-xl border border-emerald-200 shadow-sm mb-4">
+                            \begin{align*}
+                            z_1 &= \frac{-(-4) - i\sqrt{36}}{2 \times 1} = \frac{4 - 6i}{2} = 2 - 3i \\
+                            z_2 &= \frac{-(-4) + i\sqrt{36}}{2 \times 1} = \frac{4 + 6i}{2} = 2 + 3i
+                            \end{align*}
+                        </div>
+                        <p class="text-slate-700 font-medium">Les solutions sont : $S = \{2 - 3i ; 2 + 3i\}$.</p>
+                    </div>
+                </div>
+
+                <!-- EXERCICE 5 -->
+                <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                    <div class="p-6 bg-slate-50 border-b border-slate-100">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-lg font-bold text-slate-800"><span class="text-primary mr-2">Exercice 5</span> Géométrie et complexes</h3>
+                        </div>
+                        <p class="mt-4 text-slate-700">Dans le plan complexe, on donne les points $A$, $B$ et $C$ d'affixes respectives :</p>
+                        <div class="math-block text-lg">$$ z_A = 1 + i, \quad z_B = 3 + 2i, \quad z_C = 2 - i $$</div>
+                        <p class="mt-2 text-slate-700">Calculer le quotient $Z = \frac{z_C - z_A}{z_B - z_A}$. En déduire la nature du triangle $ABC$.</p>
+                    </div>
+                    <div class="p-4 bg-white text-center">
+                        <button onclick="toggleCorrection('corr5')" class="bg-primary hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg transition-colors shadow-sm">
+                            <i class="fa-solid fa-eye mr-2"></i> Voir la correction
+                        </button>
+                    </div>
+                    <div id="corr5" class="hidden p-6 bg-emerald-50 border-t border-emerald-100">
+                        <h4 class="font-bold text-emerald-800 mb-4 flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2"></i> Correction étape par étape</h4>
+                        <p class="font-semibold text-emerald-900 mt-2">1. Calcul du quotient :</p>
+                        <div class="math-block bg-white p-4 rounded-xl border border-emerald-200 shadow-sm mb-4">
+                            \begin{align*}
+                            Z &= \frac{(2 - i) - (1 + i)}{(3 + 2i) - (1 + i)} \\
+                              &= \frac{1 - 2i}{2 + i} \\
+                              &= \frac{(1 - 2i)(2 - i)}{(2 + i)(2 - i)} \\
+                              &= \frac{2 - i - 4i + 2i^2}{4 + 1} \\
+                              &= \frac{2 - 5i - 2}{5} = \frac{-5i}{5} = -i
+                            \end{align*}
+                        </div>
+                        <p class="font-semibold text-emerald-900 mt-2">2. Interprétation géométrique :</p>
+                        <p class="text-slate-700 mb-2">On sait que $Z = -i$. On en déduit :</p>
+                        <ul class="space-y-2 mb-4">
+                            <li class="bg-white p-2 rounded border border-emerald-200"><strong>Le module :</strong> $|Z| = |-i| = 1 \implies \frac{AC}{AB} = 1 \implies AC = AB$. Le triangle est donc isocèle en A.</li>
+                            <li class="bg-white p-2 rounded border border-emerald-200"><strong>L'argument :</strong> $\arg(Z) = \arg(-i) = -\frac{\pi}{2} \implies (\overrightarrow{AB}, \overrightarrow{AC}) = -\frac{\pi}{2} \pmod{2\pi}$. L'angle est droit.</li>
+                        </ul>
+                        <p class="text-slate-700 font-medium">Conclusion : Le triangle $ABC$ est rectangle et isocèle en $A$.</p>
                     </div>
                 </div>
 
