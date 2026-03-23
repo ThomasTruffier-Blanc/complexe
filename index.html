@@ -1,1 +1,499 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révision - Nombres Complexes</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuration Tailwind pour les couleurs personnalisées -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4f46e5', // Indigo 600
+                        secondary: '#0f172a', // Slate 900
+                    }
+                }
+            }
+        }
+    </script>
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .math-block { overflow-x: auto; padding: 1rem 0; }
+        /* Style pour la barre de défilement */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #c7c7cc; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
+    </style>
+
+    <!-- MathJax pour le rendu des formules mathématiques (LaTeX) -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- FontAwesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="bg-slate-50 text-slate-800 flex flex-col md:flex-row min-h-screen">
+
+    <!-- Sidebar de navigation -->
+    <aside class="w-full md:w-72 bg-secondary text-slate-300 md:fixed md:h-screen flex flex-col shadow-2xl z-20 overflow-y-auto">
+        <div class="p-6 bg-slate-950">
+            <h1 class="text-2xl font-bold text-white flex items-center gap-3">
+                <i class="fa-solid fa-book-journal-whills text-primary"></i>
+                Maths S2
+            </h1>
+            <p class="text-sm mt-2 text-slate-400">BUT R&T - Fiche de révision</p>
+        </div>
+        <nav class="flex-1 p-4 space-y-1">
+            <p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 mt-4">Sommaire</p>
+            <a href="#algebrique" class="block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-1 fa-fw mr-2 text-slate-500"></i> Forme Algébrique</a>
+            <a href="#operations" class="block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-2 fa-fw mr-2 text-slate-500"></i> Opérations & Div</a>
+            <a href="#geometrie" class="block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-3 fa-fw mr-2 text-slate-500"></i> Module & Argument</a>
+            <a href="#exponentielle" class="block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-4 fa-fw mr-2 text-slate-500"></i> Formes Trigo/Expo</a>
+            <a href="#racines" class="block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-5 fa-fw mr-2 text-slate-500"></i> Racines n-ièmes</a>
+            <a href="#methodes" class="block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-6 fa-fw mr-2 text-slate-500"></i> Méthodes & Erreurs</a>
+            <a href="#exercices" class="block px-3 py-2 bg-primary/20 text-indigo-300 font-medium rounded-md hover:bg-primary/40 transition mt-4"><i class="fa-solid fa-dumbbell fa-fw mr-2"></i> Entraînement TD</a>
+        </nav>
+        <div class="p-4 bg-slate-900 border-t border-slate-800">
+            <div class="flex items-center gap-2 text-sm text-slate-400">
+                <i class="fa-solid fa-circle-check text-green-500"></i> Prêt pour le contrôle
+            </div>
+        </div>
+    </aside>
+
+    <!-- Contenu principal -->
+    <main class="flex-1 md:ml-72 p-6 md:p-10 lg:p-16 max-w-5xl">
+        
+        <!-- En-tête de la page -->
+        <header class="mb-12 border-b border-slate-200 pb-8">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 text-primary text-sm font-semibold mb-4">
+                <i class="fa-solid fa-bolt"></i> Ultra détaillé
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">📘 Les Nombres Complexes</h1>
+            <p class="text-lg text-slate-600 leading-relaxed">
+                Fiche de révision claire, structurée et directement exploitable basée sur le contenu du cours magistral et des TD. 
+                Toutes les formules, astuces et méthodes à maîtriser sans hésiter.
+            </p>
+        </header>
+
+        <!-- Section 1 : Forme algébrique -->
+        <section id="algebrique" class="mb-16 scroll-mt-10">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                <span class="bg-primary text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm shadow-md">1</span> 
+                Forme algébrique & Bases
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Carte Définition -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 class="text-lg font-semibold text-slate-800 mb-4 border-b pb-2"><i class="fa-solid fa-cube text-primary mr-2"></i>Définition</h3>
+                    <p class="text-slate-600 mb-2">Un nombre complexe s’écrit de manière unique :</p>
+                    <div class="bg-slate-50 p-4 rounded-xl text-center text-xl font-medium border border-slate-100 math-block">
+                        $$ z = a + ib $$
+                    </div>
+                    <ul class="mt-4 space-y-2 text-slate-600">
+                        <li><span class="font-semibold text-slate-800">$a$</span> : partie réelle $\rightarrow \text{Re}(z)$</li>
+                        <li><span class="font-semibold text-slate-800">$b$</span> : partie imaginaire $\rightarrow \text{Im}(z)$</li>
+                        <li class="pt-2 text-rose-600 font-bold"><i class="fa-solid fa-triangle-exclamation mr-2"></i>Règle d'or : $i^2 = -1$</li>
+                    </ul>
+                </div>
+
+                <!-- Carte Egalité -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 class="text-lg font-semibold text-slate-800 mb-4 border-b pb-2"><i class="fa-solid fa-equals text-primary mr-2"></i>Égalité</h3>
+                    <p class="text-slate-600 mb-2">Deux nombres complexes sont égaux si et seulement si :</p>
+                    <div class="bg-indigo-50/50 p-4 rounded-xl text-center border border-indigo-100 math-block">
+                        $$ z_1 = z_2 \iff \begin{cases} \text{Re}(z_1) = \text{Re}(z_2) \\ \text{Im}(z_1) = \text{Im}(z_2) \end{cases} $$
+                    </div>
+                    <p class="mt-4 text-sm text-slate-500 italic"><i class="fa-solid fa-lightbulb text-amber-400 mr-1"></i> Utile pour identifier des coefficients lors de la résolution d'équations.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2 : Opérations -->
+        <section id="operations" class="mb-16 scroll-mt-10">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                <span class="bg-primary text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm shadow-md">2</span> 
+                Opérations, Conjugué & Division
+            </h2>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden mb-6">
+                <div class="p-6 bg-slate-50 border-b border-slate-100">
+                    <p class="text-slate-600">Soient $z_1 = a + ib$ et $z_2 = c + id$.</p>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-semibold text-slate-800 mb-3"><i class="fa-solid fa-plus text-emerald-500 mr-2"></i>Addition</h4>
+                        <div class="math-block">$$ z_1 + z_2 = (a+c) + i(b+d) $$</div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-slate-800 mb-3"><i class="fa-solid fa-xmark text-emerald-500 mr-2"></i>Multiplication</h4>
+                        <div class="math-block">$$ z_1 z_2 = (ac - bd) + i(ad + bc) $$</div>
+                        <p class="text-xs text-slate-400 mt-2">(On développe classiquement puis on remplace $i^2$ par $-1$)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Conjugué -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 class="text-lg font-semibold text-slate-800 mb-4 border-b pb-2"><i class="fa-solid fa-rotate text-primary mr-2"></i>Le Conjugué</h3>
+                    <div class="bg-slate-50 p-3 rounded-lg text-center font-medium math-block mb-4">
+                        $$ \bar{z} = a - ib $$
+                    </div>
+                    <p class="font-semibold text-sm text-slate-700 mb-2">Propriétés clés :</p>
+                    <ul class="space-y-2 text-slate-600 text-sm">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> $z \bar{z} = a^2 + b^2$ (Donne un réel pur !)</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> $\overline{z_1 z_2} = \bar{z_1}\bar{z_2}$</li>
+                    </ul>
+                </div>
+
+                <!-- Division -->
+                <div class="bg-indigo-50 border border-indigo-100 p-6 rounded-2xl shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                        MÉTHODE
+                    </div>
+                    <h3 class="text-lg font-semibold text-indigo-900 mb-4 border-b border-indigo-200 pb-2"><i class="fa-solid fa-divide text-indigo-500 mr-2"></i>Division</h3>
+                    <div class="text-center math-block mb-4 text-indigo-900">
+                        $$ \frac{z_1}{z_2} = \frac{z_1 \bar{z_2}}{z_2 \bar{z_2}} $$
+                    </div>
+                    <div class="bg-white/60 p-3 rounded-lg flex items-start gap-3">
+                        <i class="fa-solid fa-lightbulb text-amber-500 mt-1"></i>
+                        <p class="text-sm text-indigo-800 font-medium">
+                            <strong>Astuce :</strong> Pour diviser, on multiplie toujours le numérateur et le dénominateur par le <em>conjugué du dénominateur</em> pour faire disparaître le $i$ en bas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3 : Géométrie -->
+        <section id="geometrie" class="mb-16 scroll-mt-10">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                <span class="bg-primary text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm shadow-md">3</span> 
+                Interprétation géométrique : Module & Argument
+            </h2>
+            
+            <p class="text-slate-600 mb-6 bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                Dans le plan complexe, le nombre $z = a + ib$ correspond au point $M$ de coordonnées $(a, b)$.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Module -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 border-l-4 border-l-sky-400">
+                    <h3 class="text-lg font-semibold text-slate-800 mb-2">📏 Le Module (Distance)</h3>
+                    <p class="text-sm text-slate-500 mb-4">Correspond à la distance entre l'origine $O$ et le point $M$.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl text-center text-lg math-block">
+                        $$ |z| = \sqrt{a^2 + b^2} $$
+                    </div>
+                    <div class="mt-4 bg-sky-50 p-3 rounded-lg text-sm text-sky-800">
+                        <strong>Propriétés :</strong><br>
+                        $|z_1 z_2| = |z_1||z_2|$ <br>
+                        $|z|^2 = z\bar{z}$
+                    </div>
+                </div>
+
+                <!-- Argument -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 border-l-4 border-l-rose-400">
+                    <h3 class="text-lg font-semibold text-slate-800 mb-2">🧭 L'Argument (Angle)</h3>
+                    <p class="text-sm text-slate-500 mb-4">Correspond à l'angle orienté $\theta$ formé avec l'axe des abscisses.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl text-center text-lg math-block">
+                        $$ \arg(z) = \theta \pmod{2\pi} $$
+                    </div>
+                    <div class="mt-4 bg-rose-50 p-3 rounded-lg text-sm text-rose-800">
+                        <strong>Calcul via trigonométrie :</strong><br>
+                        $\cos(\theta) = \frac{a}{|z|}$ et $\sin(\theta) = \frac{b}{|z|}$
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4 : Expo / Trigo -->
+        <section id="exponentielle" class="mb-16 scroll-mt-10">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                <span class="bg-primary text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm shadow-md">4</span> 
+                Formes Trigonométrique & Exponentielle
+            </h2>
+
+            <div class="grid lg:grid-cols-3 gap-6 mb-6">
+                <!-- Trigo -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+                    <h4 class="font-semibold text-slate-700 mb-3"><i class="fa-solid fa-wave-square text-indigo-500 mr-2"></i>Forme Trigonométrique</h4>
+                    <div class="math-block">$$ z = r(\cos\theta + i\sin\theta) $$</div>
+                    <p class="text-sm text-slate-500 mt-2">Où $r = |z|$ et $\theta = \arg(z)$</p>
+                </div>
+                
+                <!-- Expo -->
+                <div class="bg-slate-800 text-white p-5 rounded-2xl shadow-lg border border-slate-700 relative overflow-hidden lg:col-span-2">
+                    <div class="absolute right-0 top-0 opacity-10">
+                        <i class="fa-solid fa-bolt text-9xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-100 mb-3 flex items-center"><i class="fa-solid fa-bolt text-yellow-400 mr-2"></i>Forme Exponentielle (LA PLUS UTILE)</h4>
+                    <div class="math-block text-xl">$$ z = re^{i\theta} $$</div>
+                    <div class="mt-4 pt-4 border-t border-slate-600 bg-slate-900/50 p-3 rounded-lg">
+                        <p class="text-sm text-yellow-300 font-semibold mb-1">Formule clé du cours (Euler) :</p>
+                        <div class="math-block">$$ e^{ix} = \cos x + i\sin x $$</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Opérations Expo -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
+                <h3 class="text-lg font-semibold text-slate-800 mb-4 border-b pb-2">Opérations avec la forme exponentielle</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <p class="text-sm font-medium text-slate-600 mb-2">Multiplication : <span class="text-primary">On multiplie les modules, on additionne les angles</span></p>
+                        <div class="bg-slate-50 p-3 rounded-lg math-block text-center border border-slate-100">
+                            $$ z_1 z_2 = r_1 r_2 e^{i(\theta_1 + \theta_2)} $$
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-slate-600 mb-2">Puissances (Formule de De Moivre) :</p>
+                        <div class="bg-slate-50 p-3 rounded-lg math-block text-center border border-slate-100">
+                            $$ z^n = r^n e^{in\theta} $$
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5 : Racines -->
+        <section id="racines" class="mb-16 scroll-mt-10">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                <span class="bg-primary text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm shadow-md">5</span> 
+                Racines n-ièmes
+            </h2>
+            
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <p class="text-slate-600 mb-4">Pour résoudre une équation de la forme <span class="bg-slate-100 px-2 py-1 rounded font-mono">$z^n = a$</span> (où $a$ est un complexe de la forme $R e^{i\alpha}$) :</p>
+                <div class="bg-indigo-50 border-l-4 border-primary p-5 rounded-r-xl">
+                    <p class="font-semibold text-indigo-900 mb-2">Les $n$ solutions sont données par :</p>
+                    <div class="math-block text-lg text-center overflow-x-auto">
+                        $$ z_k = \sqrt[n]{R} \, e^{i\frac{\alpha + 2k\pi}{n}} \quad \text{pour } k = 0, 1, ..., n-1 $$
+                    </div>
+                </div>
+                <div class="mt-4 flex items-start gap-3 text-sm text-slate-500">
+                    <i class="fa-solid fa-circle-info mt-1 text-sky-500"></i>
+                    <p>Géométriquement, ces solutions forment un polygone régulier à $n$ côtés inscrit dans un cercle de centre $O$ et de rayon $\sqrt[n]{R}$.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6 : Méthodologie & Erreurs -->
+        <section id="methodes" class="mb-16 scroll-mt-10">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+                <span class="bg-slate-800 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm shadow-md"><i class="fa-solid fa-bullseye"></i></span> 
+                Checklist & Pièges
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Checklist -->
+                <div class="bg-emerald-50 border border-emerald-100 p-6 rounded-2xl shadow-sm">
+                    <h3 class="text-lg font-bold text-emerald-800 mb-4 flex items-center"><i class="fa-solid fa-rocket mr-2"></i> Méthodes à maîtriser (TD)</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-square-check text-emerald-500 mt-1"></i>
+                            <span class="text-emerald-900">Mettre un complexe sous forme algébrique</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-square-check text-emerald-500 mt-1"></i>
+                            <span class="text-emerald-900">Passer de la forme algébrique à exponentielle</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-square-check text-emerald-500 mt-1"></i>
+                            <span class="text-emerald-900">Calculer le module et l'argument sans erreur</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-square-check text-emerald-500 mt-1"></i>
+                            <span class="text-emerald-900">Résoudre une équation complexe ($z^n = a$)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-square-check text-emerald-500 mt-1"></i>
+                            <span class="text-emerald-900">Utiliser le conjugué pour simplifier une division</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Erreurs -->
+                <div class="bg-rose-50 border border-rose-100 p-6 rounded-2xl shadow-sm">
+                    <h3 class="text-lg font-bold text-rose-800 mb-4 flex items-center"><i class="fa-solid fa-triangle-exclamation mr-2"></i> Erreurs classiques (À ÉVITER)</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-xmark text-rose-500 text-lg"></i>
+                            <span class="text-rose-900"><strong>Oublier que $i^2 = -1$</strong> (et se tromper de signe)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-xmark text-rose-500 text-lg"></i>
+                            <span class="text-rose-900"><strong>Mal calculer un argument</strong> (toujours vérifier le signe de $\cos$ et $\sin$ pour placer le point dans le bon quadrant)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-xmark text-rose-500 text-lg"></i>
+                            <span class="text-rose-900"><strong>Ne pas simplifier avec le conjugué</strong> lors d'une fraction.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-xmark text-rose-500 text-lg"></i>
+                            <span class="text-rose-900"><strong>Confondre module et partie réelle</strong> (Le module est une distance positive $\sqrt{a^2+b^2}$, la partie réelle est juste $a$).</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7 : Exercices Interactifs -->
+        <section id="exercices" class="mb-16 scroll-mt-10">
+            <div class="flex items-center justify-between mb-8 pb-4 border-b-2 border-primary/20">
+                <h2 class="text-3xl font-extrabold text-primary flex items-center gap-3">
+                    <i class="fa-solid fa-dumbbell"></i> 3 Exercices types corrigés
+                </h2>
+                <span class="bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Niveau Contrôle</span>
+            </div>
+
+            <div class="space-y-8">
+                <!-- EXERCICE 1 -->
+                <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                    <div class="p-6 bg-slate-50 border-b border-slate-100">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-lg font-bold text-slate-800"><span class="text-primary mr-2">Exercice 1</span> Forme algébrique et division</h3>
+                        </div>
+                        <p class="mt-4 text-slate-700">Mettre le nombre complexe suivant sous forme algébrique :</p>
+                        <div class="math-block text-lg">$$ Z = \frac{2 + 5i}{1 - i} $$</div>
+                    </div>
+                    <div class="p-4 bg-white text-center">
+                        <button onclick="toggleCorrection('corr1')" class="bg-primary hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg transition-colors shadow-sm">
+                            <i class="fa-solid fa-eye mr-2"></i> Voir la correction
+                        </button>
+                    </div>
+                    <div id="corr1" class="hidden p-6 bg-emerald-50 border-t border-emerald-100">
+                        <h4 class="font-bold text-emerald-800 mb-4 flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2"></i> Correction étape par étape</h4>
+                        <p class="text-slate-700 mb-2">On multiplie le numérateur et le dénominateur par le conjugué du dénominateur (qui est $1 + i$) :</p>
+                        <div class="math-block bg-white p-4 rounded-xl border border-emerald-200 shadow-sm mb-4">
+                            \begin{align*}
+                            Z &= \frac{(2 + 5i)(1 + i)}{(1 - i)(1 + i)} \\
+                              &= \frac{2 + 2i + 5i + 5i^2}{1^2 + 1^2} \\
+                              &= \frac{2 + 7i - 5}{2} \quad \text{(car } i^2 = -1 \text{)} \\
+                              &= \frac{-3 + 7i}{2} \\
+                              &= -\frac{3}{2} + \frac{7}{2}i
+                            \end{align*}
+                        </div>
+                        <p class="text-slate-700 font-medium">Conclusion : $\text{Re}(Z) = -3/2$ et $\text{Im}(Z) = 7/2$.</p>
+                    </div>
+                </div>
+
+                <!-- EXERCICE 2 -->
+                <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                    <div class="p-6 bg-slate-50 border-b border-slate-100">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-lg font-bold text-slate-800"><span class="text-primary mr-2">Exercice 2</span> Passage en forme exponentielle</h3>
+                        </div>
+                        <p class="mt-4 text-slate-700">Déterminer le module, un argument, puis la forme exponentielle de :</p>
+                        <div class="math-block text-lg">$$ z = \sqrt{3} - i $$</div>
+                    </div>
+                    <div class="p-4 bg-white text-center">
+                        <button onclick="toggleCorrection('corr2')" class="bg-primary hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg transition-colors shadow-sm">
+                            <i class="fa-solid fa-eye mr-2"></i> Voir la correction
+                        </button>
+                    </div>
+                    <div id="corr2" class="hidden p-6 bg-emerald-50 border-t border-emerald-100">
+                        <h4 class="font-bold text-emerald-800 mb-4 flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2"></i> Correction étape par étape</h4>
+                        
+                        <p class="font-semibold text-emerald-900 mt-2">1. Calcul du module :</p>
+                        <div class="math-block bg-white p-3 rounded-lg border border-emerald-200 mb-4">
+                            $$ |z| = \sqrt{(\sqrt{3})^2 + (-1)^2} = \sqrt{3 + 1} = \sqrt{4} = 2 $$
+                        </div>
+
+                        <p class="font-semibold text-emerald-900 mt-2">2. Factorisation et recherche de l'argument $\theta$ :</p>
+                        <div class="math-block bg-white p-3 rounded-lg border border-emerald-200 mb-4">
+                            $$ z = 2 \left( \frac{\sqrt{3}}{2} - i\frac{1}{2} \right) $$
+                        </div>
+                        <p class="text-slate-700 mb-2">On cherche l'angle $\theta$ tel que : $\cos\theta = \frac{\sqrt{3}}{2}$ et $\sin\theta = -\frac{1}{2}$.</p>
+                        <p class="text-slate-700 mb-4">D'après le cercle trigonométrique, $\theta = -\frac{\pi}{6}$.</p>
+
+                        <p class="font-semibold text-emerald-900 mt-2">3. Conclusion (Forme exponentielle) :</p>
+                        <div class="math-block bg-white p-3 rounded-lg border border-emerald-200 text-lg font-bold text-center">
+                            $$ z = 2e^{-i\frac{\pi}{6}} $$
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXERCICE 3 -->
+                <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden">
+                    <div class="p-6 bg-slate-50 border-b border-slate-100">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-lg font-bold text-slate-800"><span class="text-primary mr-2">Exercice 3</span> Résolution d'équation (Racines cubiques)</h3>
+                        </div>
+                        <p class="mt-4 text-slate-700">Résoudre dans $\mathbb{C}$ l'équation suivante :</p>
+                        <div class="math-block text-lg">$$ z^3 = 8 $$</div>
+                        <p class="text-sm text-slate-500 italic mt-2"><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Indice : passe par la forme exponentielle.</p>
+                    </div>
+                    <div class="p-4 bg-white text-center">
+                        <button onclick="toggleCorrection('corr3')" class="bg-primary hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-lg transition-colors shadow-sm">
+                            <i class="fa-solid fa-eye mr-2"></i> Voir la correction
+                        </button>
+                    </div>
+                    <div id="corr3" class="hidden p-6 bg-emerald-50 border-t border-emerald-100">
+                        <h4 class="font-bold text-emerald-800 mb-4 flex items-center"><i class="fa-solid fa-check text-emerald-600 mr-2"></i> Correction étape par étape</h4>
+                        
+                        <p class="text-slate-700 mb-2">On écrit d'abord $8$ sous forme exponentielle : $8 = 8e^{i0}$. L'équation devient :</p>
+                        <div class="math-block bg-white p-3 rounded-lg border border-emerald-200 mb-4 text-center">
+                            $$ z^3 = 8e^{i0} $$
+                        </div>
+                        
+                        <p class="text-slate-700 mb-2">D'après la formule des racines $n$-ièmes, il y a 3 solutions ($n=3$) données par :</p>
+                        <div class="math-block bg-white p-3 rounded-lg border border-emerald-200 mb-4 text-center">
+                            $$ z_k = \sqrt[3]{8} e^{i \frac{0 + 2k\pi}{3}} \quad \text{pour } k \in \{0, 1, 2\} $$
+                        </div>
+                        <p class="text-slate-700 mb-2">Comme $\sqrt[3]{8} = 2$, on obtient les 3 racines :</p>
+                        
+                        <ul class="space-y-3 mt-4">
+                            <li class="bg-white p-3 rounded-lg border border-emerald-200 shadow-sm">
+                                <strong>Pour k = 0 :</strong> $\quad z_0 = 2e^{i0} = \mathbf{2}$
+                            </li>
+                            <li class="bg-white p-3 rounded-lg border border-emerald-200 shadow-sm">
+                                <strong>Pour k = 1 :</strong> $\quad z_1 = 2e^{i\frac{2\pi}{3}} = 2\left(-\frac{1}{2} + i\frac{\sqrt{3}}{2}\right) = \mathbf{-1 + i\sqrt{3}}$
+                            </li>
+                            <li class="bg-white p-3 rounded-lg border border-emerald-200 shadow-sm">
+                                <strong>Pour k = 2 :</strong> $\quad z_2 = 2e^{i\frac{4\pi}{3}} = 2\left(-\frac{1}{2} - i\frac{\sqrt{3}}{2}\right) = \mathbf{-1 - i\sqrt{3}}$
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <footer class="mt-20 border-t border-slate-200 pt-8 pb-12 text-center">
+            <p class="text-slate-500 font-medium">Bon courage pour ton contrôle de Maths ! 🚀</p>
+        </footer>
+
+    </main>
+
+    <!-- Script pour interactivité basique -->
+    <script>
+        function toggleCorrection(id) {
+            const el = document.getElementById(id);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
